@@ -1,0 +1,172 @@
+最后更新2010.11.13 v1.9o
+
+ 更新历史
+
+1.9o
+- 增加hid-brjtag v2支持，硬件平台为STM32F(目前运行在ST mini 3in1板上）
+- hidbrjtag v1 rom 更新到1.03，支持长IR
+
+1.9m
+- 增加对USBASP硬件的支持，rom版本hid-brjtag v1,参考 http://www.fischl.de/
+
+
+1.9L
+- 增加一个新处理器BCM4701
+- 增加一个新flash, M29W128G (0x017E, 0x3701) 16MB.
+
+1.9k
+- 64位系统经测试不能正常工作，需要修改代码单独编译64位版本，因此暂时放弃支持64位系统
+- USB设备时序进行优化，目前这个版本基本可以做到稳定可靠，速度有所提高
+- USB默认脚本更新
+      /L9:1  用于较老的设备，比如BCM4710
+      /L9:2  专门为快速备份操作优化，对于全片备份有20%速度提升
+- 增加一种并口访问方式，用/io2 激活。发现BCM5354编程和备份有4字节的位置便宜
+  希望新加入的端口访问方式能够对此有所改善
+
+
+1.9j
+- windows并口驱动转换到WinIo 3.0,全面支持32位/64位 win2000/xp/vista/win7/win2008.
+  64位系统需要加开关 /os64
+  WinIo读写效率很好，giveio和inpout32不再支持。
+
+- 简易并口增加对nSRST信号支持，通过100ohm 电阻链接在DB25的pin7
+  通过/srst激活JTAG复位设备
+
+- /ejslow开关通过加入延迟可以提高USB设备高频率写入时的稳定性
+
+
+1.9h
+- 添加 5354 启动代码
+  /initcpu
+  
+
+1.9g3
+- 增加8位数据宽度flash刷新支持
+  /wx8 命令激活
+  如果dma模式无法正确写入，尝试用并口线和pracc模式
+  /wx8 /nodma
+
+1.9f
+- 增加J-link ARM JTAG仿真器支持
+- 进一步优化usb设备的读写策略
+
+
+1.9e
+-修正ft2232 在safemode下的读写错误
+-改变ft2232 D2xx 动态库加载方式
+
+
+1.9d
+-提高与老式CPU和FLASH的兼容性和写入稳定性
+
+1.9c
+-提高与老式CPU和FLASH的兼容性和写入稳定性
+
+1.9b
+
+-修正了一个CUSTOM定义的bug
+
+1.9a
+
+-更新了一下cpu判别方法,CPU现在更容易被识别
+-增加InpOut32.dll库支持，并口线或许可以工作在Windows Vista和Windows 7下面
+ 用 /inpout32 激活，未全面测试。
+-增加FT2232C/D/L USB->JTAG模块的支持，从这个版本起brjtag可以使用一种通用USB Jtag线了
+
+
+1.8c
+
+-更新了一下cpu判别方法
+
+1.8b
+
+-更新了一下3周期flash ID检测方法，适应更多CFI兼容芯片
+
+1.8a
+-CFI 自动flash识别版，支持更多的flash
+-增加flash CFI参数查询功能，这样可以用于绝大多数命令集16位的flash
+    增加3个开关
+      /nocfi   禁止自动查询功能，使用内置的芯片参数列表
+      /forceflip    强制反转cfi查询到的删除区域组织结构
+      /forcenoflip    强制不反转cfi查询到的删除区域组织结构
+    后面两个开关用于人工干预某些芯片扇区结构翻转
+-为intel和SST芯片增加全片擦除功能，使用命令
+    brjtag -probeonly /erasechip
+
+1.7u
+
+- 改善brjtag提示无法进入Debug模式， Halting Processor ... <Processor did NOT enter Debug Mode!> ... Done
+  1.6r -1.7t所有版本都会挂在这里，不能继续，挂住的原因是：处理器由于flash 启动扇区的混乱代码造成进入非正常状态，
+  无法响应jtag调试中断，所以调试指令无法被响应执行。
+  解决方法： 在打开modem电源之前，将flash的输出使能OE#引脚接地，再打开电源，释放OE的短接线，最后执行Brjtag。
+
+
+1.7t 测试版
+
+-重新检查了DMA读写容错策略
+
+1.7s
+
+- 改善 /fc:xx  /window /crasechip 等自定义开关的组合使用效果
+- 增加了/nompi 开关忽略自动访问地址检查
+
+1.7r
+-修正1.7p引入的写入intel 芯片的bug
+-NVRAM区域再次更新
+-修正intel flash /noerase 可能引入的错误
+-加入严格边界对齐检查
+
+1.7m 
+-修复-probeonly /erasechip 支持所有的AMD 命令集芯片
+-加入EON, MXIC 和ST的大部分4MB,8MB,16MB的AMD兼容flash
+
+
+1.7j
+
+-增加了2个开关
+  /pracc0  使用HD最初的Pracc代码，速度慢，兼容性好
+  /ejtag0  jtag读写周期加入20ns延时，确保高主频机器的兼容性
+
+***  读写速度 ***
+
+     开关                  读(20KB)      写(1KB)
+
+/dma                   |  6s         |    4s
+/dma /ejtag0           |  8s         |    4s
+/nodma                 | 42s         |   17s
+/nodma /ejtag0         | 58s         |   23s
+/nodma /pracc0         | 60s         |   30s
+/nodma /pracc0 /ejtag0 | 80s         |   40s
+**************************************************
+
+
+1.6r 
+-增加 16MB Spansion S29GL128-P，这个片子和S29GL128-N共用ID .      
+-增加 4MB/8MB/16MB Spansion S29GL-M系列flash.
+- 支持扇区保护状态PPB显示,  -probeonly /showppb
+- 支持清除扇区保护PPB寄存器,  -probeonly /clearppb
+- 允许使用全片删除命令,  -probeonly /erasechip
+- 运行加载cpu配置代码，该版本增加 BCM6358配置代码，可以在全空状态读写16MB空间, 
+  代码结构易于扩展  /initcpu
+- 增加 BCM6368 CPU ID
+- 重写了 Pracc 执行代码，Pracc模式写入速度提高1倍，读出速度提高1/4
+  64KB写入1100秒,读出150秒
+- 对与写入擦除操作窗口与flash扇区边界不对齐的处理更加完善. /forcealign
+- 运行用户自定义flash探测地址.     -probeonly /window:xxxxxxxx
+- 根据最新的 S29GL128-P datasheet 优化AMD操作指令
+- 对 BCM63x8 芯片的地址计算方法进行了更新。
+
+1.0  基于Tornado的Tjtag修改版v2.0
+-添加工具对big endian的支持
+-全面支持6338,6348,6358系列DSL芯片
+
+以前版本
+
+Tornado Trjtag v2.0
+My modifications - Thanks to HDM's great work
+tornado@odessaua.com
+
+HDM's wrt54g v 4.8
+
+HairyDairyMaid (a.k.a. - lightbulb)
+ hairydairymaid@yahoo.com

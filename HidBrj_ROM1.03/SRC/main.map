@@ -1,0 +1,444 @@
+Archive member included because of file (symbol)
+
+f:/winavr/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodhi4.o)
+                              usbasp.o (__udivmodhi4)
+f:/winavr/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_exit.o)
+                              f:/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4/crtm8.o (exit)
+f:/winavr/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_copy_data.o)
+                              usbdrv/usbdrv.o (__do_copy_data)
+f:/winavr/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_clear_bss.o)
+                              usbdrv/usbdrv.o (__do_clear_bss)
+f:/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4\libc.a(memcpy.o)
+                              main.o (memcpy)
+
+Allocating common symbols
+Common symbol       size              file
+
+usbTxBuf            0xb               usbdrv/usbdrv.o
+gAddr               0x4               usbasp.o
+usbDeviceAddr       0x1               usbdrv/usbdrv.o
+usbRxToken          0x1               usbdrv/usbdrv.o
+usbInputBufOffset   0x1               usbdrv/usbdrv.o
+gMode               0x1               usbasp.o
+usbMsgPtr           0x2               usbdrv/usbdrv.o
+usbRxLen            0x1               usbdrv/usbdrv.o
+usbNewDeviceAddr    0x1               usbdrv/usbdrv.o
+usbCurrentTok       0x1               usbdrv/usbdrv.o
+usbConfiguration    0x1               usbdrv/usbdrv.o
+usbRxBuf            0x16              usbdrv/usbdrv.o
+gInstrlen           0x1               usbasp.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+text             0x00000000         0x00002000         xr
+data             0x00800060         0x0000ffa0         rw !x
+eeprom           0x00810000         0x00010000         rw !x
+fuse             0x00820000         0x00000400         rw !x
+lock             0x00830000         0x00000400         rw !x
+signature        0x00840000         0x00000400         rw !x
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD f:/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4/crtm8.o
+LOAD usbdrv/usbdrv.o
+LOAD usbdrv/usbdrvasm.o
+LOAD usbdrv/oddebug.o
+LOAD main.o
+LOAD usbasp.o
+LOAD f:/winavr/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a
+LOAD f:/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4\libc.a
+LOAD f:/winavr/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a
+
+.hash
+ *(.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.init
+ *(.rel.init)
+
+.rela.init
+ *(.rela.init)
+
+.rel.text
+ *(.rel.text)
+ *(.rel.text.*)
+ *(.rel.gnu.linkonce.t*)
+
+.rela.text
+ *(.rela.text)
+ *(.rela.text.*)
+ *(.rela.gnu.linkonce.t*)
+
+.rel.fini
+ *(.rel.fini)
+
+.rela.fini
+ *(.rela.fini)
+
+.rel.rodata
+ *(.rel.rodata)
+ *(.rel.rodata.*)
+ *(.rel.gnu.linkonce.r*)
+
+.rela.rodata
+ *(.rela.rodata)
+ *(.rela.rodata.*)
+ *(.rela.gnu.linkonce.r*)
+
+.rel.data
+ *(.rel.data)
+ *(.rel.data.*)
+ *(.rel.gnu.linkonce.d*)
+
+.rela.data
+ *(.rela.data)
+ *(.rela.data.*)
+ *(.rela.gnu.linkonce.d*)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rel.got
+ *(.rel.got)
+
+.rela.got
+ *(.rela.got)
+
+.rel.bss
+ *(.rel.bss)
+
+.rela.bss
+ *(.rela.bss)
+
+.rel.plt
+ *(.rel.plt)
+
+.rela.plt
+ *(.rela.plt)
+
+.text           0x00000000     0x1170
+ *(.vectors)
+ .vectors       0x00000000       0x26 f:/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4/crtm8.o
+                0x00000000                __vectors
+                0x00000000                __vector_default
+ *(.vectors)
+ *(.progmem.gcc*)
+ .progmem.gcc_sw_table
+                0x00000026       0x12 main.o
+ *(.progmem*)
+ .progmem.data  0x00000038       0x63 usbdrv/usbdrv.o
+                0x0000006e                usbDescriptorDevice
+                0x00000038                usbDescriptorString0
+                0x00000060                usbDescriptorStringSerialNumber
+                0x00000080                usbDescriptorConfiguration
+                0x0000003c                usbDescriptorStringVendor
+                0x0000004a                usbDescriptorStringDevice
+ .progmem.data  0x0000009b       0x16 main.o
+                0x0000009b                usbDescriptorHidReport
+                0x000000b2                . = ALIGN (0x2)
+ *fill*         0x000000b1        0x1 00
+                0x000000b2                __trampolines_start = .
+ *(.trampolines)
+ .trampolines   0x000000b2        0x0 linker stubs
+ *(.trampolines*)
+                0x000000b2                __trampolines_end = .
+ *(.jumptables)
+ *(.jumptables*)
+ *(.lowtext)
+ *(.lowtext*)
+                0x000000b2                __ctors_start = .
+ *(.ctors)
+                0x000000b2                __ctors_end = .
+                0x000000b2                __dtors_start = .
+ *(.dtors)
+                0x000000b2                __dtors_end = .
+ SORT(*)(.ctors)
+ SORT(*)(.dtors)
+ *(.init0)
+ .init0         0x000000b2        0x0 f:/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4/crtm8.o
+                0x000000b2                __init
+ *(.init0)
+ *(.init1)
+ *(.init1)
+ *(.init2)
+ .init2         0x000000b2        0xc f:/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4/crtm8.o
+ *(.init2)
+ *(.init3)
+ *(.init3)
+ *(.init4)
+ .init4         0x000000be       0x16 f:/winavr/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_copy_data.o)
+                0x000000be                __do_copy_data
+ .init4         0x000000d4       0x10 f:/winavr/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_clear_bss.o)
+                0x000000d4                __do_clear_bss
+ *(.init4)
+ *(.init5)
+ *(.init5)
+ *(.init6)
+ *(.init6)
+ *(.init7)
+ *(.init7)
+ *(.init8)
+ *(.init8)
+ *(.init9)
+ .init9         0x000000e4        0x4 f:/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4/crtm8.o
+ *(.init9)
+ *(.text)
+ .text          0x000000e8        0x2 f:/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4/crtm8.o
+                0x000000e8                __vector_12
+                0x000000e8                __bad_interrupt
+                0x000000e8                __vector_6
+                0x000000e8                __vector_3
+                0x000000e8                __vector_11
+                0x000000e8                __vector_13
+                0x000000e8                __vector_17
+                0x000000e8                __vector_7
+                0x000000e8                __vector_5
+                0x000000e8                __vector_4
+                0x000000e8                __vector_9
+                0x000000e8                __vector_2
+                0x000000e8                __vector_15
+                0x000000e8                __vector_8
+                0x000000e8                __vector_14
+                0x000000e8                __vector_10
+                0x000000e8                __vector_16
+                0x000000e8                __vector_18
+ .text          0x000000ea      0x26c usbdrv/usbdrv.o
+                0x000000f8                usbPoll
+                0x000000ea                usbInit
+ .text          0x00000356      0x28c usbdrv/usbdrvasm.o
+                0x00000388                __vector_1
+                0x00000356                usbCrc16
+                0x00000380                usbCrc16Append
+ .text          0x000005e2        0x0 usbdrv/oddebug.o
+ .text          0x000005e2      0x4b0 main.o
+                0x000005e2                usbFunctionSetup
+                0x0000072c                main
+                0x00000a4c                usbFunctionRead
+                0x000009ee                usbFunctionWrite
+ .text          0x00000a92      0x6a0 usbasp.o
+                0x00000a92                my_delayus
+                0x00000b1c                TAP_STmove
+                0x00000fb8                TAP_FLSH_BLKWR
+                0x00000f72                TAP_DMA_BLKRD
+                0x00000d3a                TAP_DMA_RD
+                0x00000bf0                TAP_clock_32
+                0x00000c86                TAP_SetInstr
+                0x00000b4a                TAP_clock_bits
+                0x00000ce0                TAP_DetInstr
+                0x00000d22                TAP_SetData32
+                0x00000b3c                TAP_ST_Reset
+                0x00000e5a                TAP_DMA_WR
+ .text          0x00001132        0x0 f:/winavr/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodhi4.o)
+ .text          0x00001132        0x0 f:/winavr/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_exit.o)
+ .text          0x00001132        0x0 f:/winavr/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_copy_data.o)
+ .text          0x00001132        0x0 f:/winavr/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_clear_bss.o)
+ .text          0x00001132        0x0 f:/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4\libc.a(memcpy.o)
+                0x00001132                . = ALIGN (0x2)
+ *(.text.*)
+ .text.libgcc   0x00001132       0x28 f:/winavr/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodhi4.o)
+                0x00001132                __udivmodhi4
+ .text.libgcc   0x0000115a        0x0 f:/winavr/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_exit.o)
+ .text.libgcc   0x0000115a        0x0 f:/winavr/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_copy_data.o)
+ .text.libgcc   0x0000115a        0x0 f:/winavr/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_clear_bss.o)
+ .text.avr-libc
+                0x0000115a       0x12 f:/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4\libc.a(memcpy.o)
+                0x0000115a                memcpy
+                0x0000116c                . = ALIGN (0x2)
+ *(.fini9)
+ .fini9         0x0000116c        0x0 f:/winavr/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_exit.o)
+                0x0000116c                exit
+                0x0000116c                _exit
+ *(.fini9)
+ *(.fini8)
+ *(.fini8)
+ *(.fini7)
+ *(.fini7)
+ *(.fini6)
+ *(.fini6)
+ *(.fini5)
+ *(.fini5)
+ *(.fini4)
+ *(.fini4)
+ *(.fini3)
+ *(.fini3)
+ *(.fini2)
+ *(.fini2)
+ *(.fini1)
+ *(.fini1)
+ *(.fini0)
+ .fini0         0x0000116c        0x4 f:/winavr/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_exit.o)
+ *(.fini0)
+                0x00001170                _etext = .
+
+.data           0x00800060       0x88 load address 0x00001170
+                0x00800060                PROVIDE (__data_start, .)
+ *(.data)
+ .data          0x00800060        0x0 f:/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4/crtm8.o
+ .data          0x00800060        0x2 usbdrv/usbdrv.o
+                0x00800060                usbTxLen
+ .data          0x00800062        0x0 usbdrv/usbdrvasm.o
+ .data          0x00800062        0x0 usbdrv/oddebug.o
+ .data          0x00800062        0x0 main.o
+ .data          0x00800062       0x85 usbasp.o
+                0x00800062                spi_speed
+ .data          0x008000e7        0x0 f:/winavr/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodhi4.o)
+ .data          0x008000e7        0x0 f:/winavr/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_exit.o)
+ .data          0x008000e7        0x0 f:/winavr/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_copy_data.o)
+ .data          0x008000e7        0x0 f:/winavr/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_clear_bss.o)
+ .data          0x008000e7        0x0 f:/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4\libc.a(memcpy.o)
+ *(.data*)
+ *(.rodata)
+ *(.rodata*)
+ *(.gnu.linkonce.d*)
+                0x008000e8                . = ALIGN (0x2)
+ *fill*         0x008000e7        0x1 00
+                0x008000e8                _edata = .
+                0x008000e8                PROVIDE (__data_end, .)
+
+.bss            0x008000e8      0x1d4
+                0x008000e8                PROVIDE (__bss_start, .)
+ *(.bss)
+ .bss           0x008000e8        0x0 f:/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4/crtm8.o
+ .bss           0x008000e8        0x1 usbdrv/usbdrv.o
+ .bss           0x008000e9        0x0 usbdrv/usbdrvasm.o
+ .bss           0x008000e9        0x0 usbdrv/oddebug.o
+ .bss           0x008000e9      0x199 main.o
+ .bss           0x00800282        0xa usbasp.o
+                0x00800283                cycle_delay
+                0x00800282                st_jtag
+ .bss           0x0080028c        0x0 f:/winavr/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodhi4.o)
+ .bss           0x0080028c        0x0 f:/winavr/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_exit.o)
+ .bss           0x0080028c        0x0 f:/winavr/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_copy_data.o)
+ .bss           0x0080028c        0x0 f:/winavr/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_clear_bss.o)
+ .bss           0x0080028c        0x0 f:/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4\libc.a(memcpy.o)
+ *(.bss*)
+ *(COMMON)
+ COMMON         0x0080028c       0x2a usbdrv/usbdrv.o
+                0x0080028c                usbTxBuf
+                0x00800297                usbDeviceAddr
+                0x00800298                usbRxToken
+                0x00800299                usbInputBufOffset
+                0x0080029a                usbMsgPtr
+                0x0080029c                usbRxLen
+                0x0080029d                usbNewDeviceAddr
+                0x0080029e                usbCurrentTok
+                0x0080029f                usbConfiguration
+                0x008002a0                usbRxBuf
+ COMMON         0x008002b6        0x6 usbasp.o
+                0x008002b6                gAddr
+                0x008002ba                gMode
+                0x008002bb                gInstrlen
+                0x008002bc                PROVIDE (__bss_end, .)
+                0x00001170                __data_load_start = LOADADDR (.data)
+                0x000011f8                __data_load_end = (__data_load_start + SIZEOF (.data))
+
+.noinit         0x008002bc        0x0
+                0x008002bc                PROVIDE (__noinit_start, .)
+ *(.noinit*)
+                0x008002bc                PROVIDE (__noinit_end, .)
+                0x008002bc                _end = .
+                0x008002bc                PROVIDE (__heap_start, .)
+
+.eeprom         0x00810000        0x0
+ *(.eeprom*)
+                0x00810000                __eeprom_end = .
+
+.fuse
+ *(.fuse)
+ *(.lfuse)
+ *(.hfuse)
+ *(.efuse)
+
+.lock
+ *(.lock*)
+
+.signature
+ *(.signature*)
+
+.stab
+ *(.stab)
+
+.stabstr
+ *(.stabstr)
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment
+ *(.comment)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges
+ *(.debug_aranges)
+
+.debug_pubnames
+ *(.debug_pubnames)
+
+.debug_info
+ *(.debug_info)
+ *(.gnu.linkonce.wi.*)
+
+.debug_abbrev
+ *(.debug_abbrev)
+
+.debug_line
+ *(.debug_line)
+
+.debug_frame
+ *(.debug_frame)
+
+.debug_str
+ *(.debug_str)
+
+.debug_loc
+ *(.debug_loc)
+
+.debug_macinfo
+ *(.debug_macinfo)
+OUTPUT(main.elf elf32-avr)
+LOAD linker stubs

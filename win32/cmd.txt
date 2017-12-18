@@ -1,0 +1,174 @@
+
+        ===============================================
+         Broadcom EJTAG Debrick Utility v1.9o-hugebird 
+        ===============================================
+
+ ABOUT: This program reads/writes flash memory on the Broadcom MIPS(LE)
+        Chip and compatible routers via EJTAG using either DMA Access
+        routines or PrAcc routines (slower/more compatible). Processor chips
+        supported in this version include the following chips:
+
+            Supported Chips
+            ---------------
+            Broadcom BCM4702                                 
+            Broadcom BCM4704                                 
+            Broadcom BCM4712                                 
+            Broadcom BCM4716                                 
+            Broadcom BCM4705|4785                            
+            Broadcom BCM5350                                 
+            Broadcom BCM5352                                 
+            Broadcom BCM5354                                 
+            Broadcom BCM5365                                 
+            Broadcom BCM6345                                 
+            Broadcom BCM6338                                 
+            Broadcom BCM6348                                 
+            Broadcom BCM6358                                 
+            Broadcom BCM6368                                 
+            Broadcom BCM6816                                 
+            Broadcom BCM7401                                 
+            PMC-Serria BRECIS MSP2007-CA-A1                    
+            TI TNETD7300GDU(AR7WRD)                    
+            TI TNETV1060GDW                            
+
+            Supported Cable Types
+            ---------------
+            ID	Cable Name
+            0	 Parallel port type(DLC5/WIGGLER)                       
+            1	 FT2232C/D based USB cable(OpenMoko,JTAGkey,OpenJTAG)   
+            2	 SEGGAR J-Link EMU                                      
+            3	 HID-BRJTAG v1.xx(USBASP)                               
+            4	 HID-BRJTAG v2.xx(STM32F10x/SAM7S)                      
+
+
+ USAGE: Brjtag /showflashlist
+ USAGE: Brjtag [parameter] </noreset> </noemw> </nocwd> </nobreak></LE|BE>
+                      </notimestamp> </dma> </nodma> </noerase></initcpu>
+                      </nompi> </ejslow></waitbrk></srst><wx8>
+                      </bypass></forcealign></showppb></clearppb></erasechip>
+                      </nocfi></forcenoflip></forceflip>
+                      <window:XXXXXXXX><start:XXXXXXXX> </length:XXXXXXXX>
+                      <port:XXX> </instrlen:XX> </fc:XX></skipdetect>
+                      </wiggler></cable:X></io2></safemode>
+                      </verbose>
+
+            Required Parameter
+            ------------------
+            -backup:cfe
+            -backup:tfe
+            -backup:nvram
+            -backup:kernel
+            -backup:wholeflash
+            -backup:custom
+            -backup:bsp
+            -erase:cfe
+            -erase:tfe
+            -erase:nvram
+            -erase:kernel
+            -erase:wholeflash
+            -erase:custom
+            -erase:bsp
+            -flash:cfe
+            -flash:tfe
+            -flash:nvram
+            -flash:kernel
+            -flash:wholeflash
+            -flash:custom
+            -flash:bsp
+            -probeonly
+
+            Optional Switches
+            -----------------
+            /noreset ........... prevent Issuing EJTAG CPU reset
+            /noemw ............. prevent Enabling Memory Writes
+            /nocwd ............. prevent Clearing CPU Watchdog Timer
+            /nobreak ........... prevent Issuing Debug Mode JTAGBRK
+            /noerase ........... prevent Forced Erase before Flashing
+            /notimestamp ....... prevent Timestamping of Backups
+            /dma ............... force use of DMA routines
+            /srst .............. force a TAP nSRST reset on starting
+            /nodma ............. force use of PRACC routines (No DMA)
+            /ejslow............. with low speed ejtag access
+            /waitbrk............ wait until CPU enter debug mode
+            /wx8 ............... with x8 mode program flash
+            /initcpu............ load CPU configuration code
+            /nompi.............. skip autodect flash base address with MPI Reg
+            /LE ................ force operate as Little Endian chip
+            /BE ................ force operate as Big Endian chip
+            /window:XXXXXXXX ... custom flash window base&probe address(in HEX)
+            /start:XXXXXXXX .... custom start location (in HEX)
+            /length:XXXXXXXX ... custom length (in HEX)
+            /verbose............ scrolling display of data
+            /skipdetect ........ skip auto detection of CPU Chip ID
+            /instrlen:XX ....... set CPU instruction length manually
+            /wiggler ........... use wiggler cable
+            /nocfi ............. disable CFI query flash geometry
+            /forcenoflip ....... force not flipping CFI queried flash geometry
+            /forceflip ......... force flipping CFI queried flash geometry
+            /bypass ............ unlock Spansion bypass mode & disable polling
+            /forcealign......... force erase address align with block boundary
+            /erasechip.......... erase whole chip, only work with -probeonly 
+            /clearppb........... erase Spansion PPB,only work with -probeonly
+            /showppb ........... show flash sector protection status
+                                 only work with -probeonly 
+            /port:XXX........... customize parallel port(default XXX is 378)
+                                 only work in Windows version
+            /io2 ............... use alternative Parallel port access method
+            /cable:x ........... select cable type, x = cable type ID
+            /safemode .......... use parallel cable way operate USB, SLOW!
+            /fc:XXX = Manual Flash Chip Selection,disable CFI and ID auto match
+                      use 'brjtag /showflashlist' show build-in flash list
+            
+
+
+ NOTES: *) '-backup:', '-flash:' and '-erase:', the source filename must exist
+           as follows: CFE.BIN, NVRAM.BIN, KERNEL.BIN, WHOLEFLASH.BIN or
+           CUSTOM.BIN, BSP.BIN, TFE.BIN(64KB or 1x bottom Sector length CFE)
+
+        *) Brjtag defualt with x16 mode handle Parallel Flash chip. /wx8 switch
+           to x8 mode.
+
+        *) Brjtag uses CFI command set to automatically detect flash chip
+           parameters. If you have difficulty auto-detecting flash with CFI,
+           '/nocfi' convert to original flash detection method. brjtag then use
+           detected flash ID query parameters from build-in flash list. 
+           particularly, you can use '/fc:XX' manually specify flash ID.
+           'brjtag /showflashlist' can print build-in flash list 
+
+        *) '/forcenoflip' and '/forceflip' can help on some AMD type flash
+           detecting sector structure correctly if CFI uses.
+           'brjtag -probeonly /verbose' debug flash detection
+
+        *) If you have difficulty with the older bcm47xx chips or when no CFE
+           is currently active/operational you may want to try both the
+           /noreset and /nobreak command line options together.  Some bcm47xx
+           chips *may* always require both these options to function properly.
+
+        *) When using this utility, usually it is best to type the command line
+           out, then power up the router, about 0.5 second delay, hit <ENTER> 
+           quickly to avoid bad CFE code lead to <CPU NOT enter Debug mode> 
+           or the CPUs watchdog interfering with the EJTAG operations.
+
+        *) /bypass - enables Unlock bypass command for some AMD/Spansion type
+           flashes, it also disables polling
+
+        *) /initcpu allow load config code to initialize the CPU. This may help
+           BCM6358 prevent from some address non-accessible.
+
+        *) '-probeonly /window:xxxxxxxx /erasechip' allow choose a workable
+           sector address to erase whole chip. This may help on a bricked box
+           with bad CFE
+
+        *) /forcealign - enable erase sectors if the operation window is not
+           aligned with sector boundary. It's risky! but can help erase some
+           box NVRAM area whose sector size is larger than NVRAM definition
+
+        *) /ejslow - limit parallel port clock out speed to 500KHz. This wish
+           to increase LPT port compatibility for some high clock PC.
+           For USB cable this switch can help hit higher clock
+
+ ***************************************************************************
+ * Flashing the KERNEL or WHOLEFLASH will take a very long time using JTAG *
+ * via this utility.  You are better off flashing the CFE & NVRAM files    *
+ * & then using the normal TFTP method to flash the KERNEL via ethernet.   *
+ ***************************************************************************
+

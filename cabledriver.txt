@@ -1,0 +1,13 @@
+
+Parallel cable only support WinIo 3.0 from brjtag v1.9k. only 32bits Windows is supported.
+
+
+
+FT2232D USB only need FTDI CDM diver, work with FTDI D2xx lib.
+  http://www.ftdichip.com/FTProducts.htm
+  http://wiki.openmoko.org/wiki/Debug_Board_v2
+
+
+
+J-Link and hid-brjtag need install libusb-win32 filter-bin later than 2010.5.5 snapshot. Win7 and WinVista user need pay more attention.
+  http://sourceforge.net/projects/libusb-win32/

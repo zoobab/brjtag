@@ -1,0 +1,66 @@
+1. hid-brjtag mcu rom 1.03
+
+This rom works with usbasp hardware, main mcu chip is ATMEL ATmega 8. source compile need a opensource tool WINAVR for windows. I am using WinAVR-20100110-install.exe. After installing WINAVR, load project in Programmer's Notepad, tools->make clen, then tools->make program.   main.hex is ready for download to usbasp
+
+http://www.fischl.de/
+http://www.obdev.at/vusb/
+http://winavr.sourceforge.net/
+
+
+
+2. Brjtag 1.9o on windows
+
+The compiler is choosen MS vc++ 6.0 or later. Only need command line cl.exe. Free version vs.net can be download  from MS website.
+
+open a cmd window in source folder, run zl.bat
+
+libusb-win32 filter driver is required for j-link and hid-brjtag. if brjtag need run on Vista or Win7, libusb-win32 version required later than 2010.5.5
+
+ft2232 D2xx driver can get from www.ftdichip.com
+
+
+3. Linux
+
+usb supporting requires libusb legacy version 0.1.12
+download D2xx for linux version 0.4.16 from http://www.ftdichip.com/Drivers/D2XX.htm
+in driver package, libusb 0.1.12 is included.
+
+step 1, compile and install libusb.
+in libusb folder
+./configure
+./make
+./make install
+all libusb lib can found in /usr/local/lib
+
+step 2, install d2xx lib
+copy d2xxinstall shell scripts in un-taggz-ed d2xx driver folder and run.
+./d2xxinstall
+the scripts will copy ftdid2xx dynamic lib to /usr/local/lib, and create two soft links for link-time and run-time
+check d2xx driver folder readme.dat
+modify /etc/fstab
+
+if using a kernel 2.6.xx
+running occur: libftd2xx.so.0 cannot restore segment prot after reloc: Permission denied
+try
+chcon -t texrel_shlib_t /usr/local/lib/libftd2xx.*
+
+in brjtag root folder
+make all
+can get both dynamic link and static link obj file.
+dynamic obj:brjtag
+static obj:brjtag.a
+
+I have packed all static libs to brjtag/lnx sub folder, use
+make static
+to get static only obj. 
+you can compile and run static obj without installing libusb and ftdid2xx libs.
+
+
+*********************************************************************************************
+If you modified based on these SRC codes, I am appreciate you send a copy to hugebird2k@live.cn
+*********************************************************************************************
+
+
+
+hugebird
+2010.11

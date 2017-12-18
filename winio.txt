@@ -1,0 +1,11 @@
+WinIo v3.0 
+
+Direct Hardware Access Under Windows NT/2000/XP/2003/Vista/7/2008
+Copyright 1998-2010 Yariv Kaplan 
+www.internals.com 
+
+--------------------------------------------------------------------------------
+
+
+The WinIo library allows 32-bit and 64-bit Windows applications to directly access I/O ports and physical memory. 
+

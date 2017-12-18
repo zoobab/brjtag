@@ -1,0 +1,312 @@
+The latest version is 1.9o (2010.11.13)
+
+Change Log
+
+1.9o
+- added STM32F based hid-brjtag v2 supporting
+- hid-brjtag v1.03 rom is ready supporting long IR
+
+1.9m
+- added ATMega8 based hid-brjtag v1 supporting. Mcu hardware use existed USBASP, see http://www.fischl.de/
+
+
+1.9L
+- added a new cpu BCM7401
+- added a new flash, M29W128G (0x017E, 0x3701) 16MB uniform.
+
+
+1.9k
+- 1.9j did not work under 64bits Windows. An independent 64bits version should be released in future.
+- Optimized timing of USB cable. stability and speed both improved.
+- updated USB cable build-in profile
+      /L9:1  Setting for safe mode access old devices, such as BCM4710
+      /L9:2  for quick whole chip backup, about 20% speed improvement.
+- added another access method to parallel port under windows, active option with /io2.
+  found some BCM5354 flash/backup in win7 have 4 bytes address shift, wish /io2 can help on.
+
+
+1.9j
+- Windows driver for parallel cable spin to WinIo 3.0, fully support 32b/64b win2000/xp/vista/win7/win2008.
+  /os64 option must added under 64bit windows
+  WinIo W/R efficiency is perfect, give up supporting giveio and inpout32
+
+- added nSRST signal support for simple parallel DLC5 cable, need 100ohm resister connect to DB25 pin7
+  /srst option can take a  HW reset via JTAG on starting
+
+- /ejslow option can improve flash write stability for USB cable.
+
+
+1.9h
+- added 5354 chip init code
+  /initcpu
+
+1.9g3
+- added x8 mode flashing support
+  /wx8
+  if dma mode can't program correctly, try a parallel cable and pracc mode
+  /wx8 /nodma
+
+1.9f
+- Added support for J-link arm usb emulator
+- further optimize the usb jtager R/W performance
+
+1.9e
+- fixed a ft2232 safemode bug from 1.8c and 1.8d
+- changed ftdi d2xx dll driver loading method
+
+1.9d
+-improved program stability with old cpu and flash
+
+
+1.9c
+-improved program stability with old cpu and flash
+
+1.9b
+
+-fixed a CUSTOM bug
+
+1.9a
+
+- updated cpu identify routine
+- Added Inpout32.dll support for LPT working in Windows vista or Windows 7, Not fully tested /inpout32
+- Added support for FTDI FT2232C/D/L USB->JTAG module. /cable:2
+
+
+
+1.8c
+
+-updated cpu identify routine.
+
+1.8b
+
+- updated 3 cycles flash ID detect routine.
+
+1.8a
+- new added CFI flash type query. Great function, should be work with most of x16 Parallel flash,
+  /nocfi use stored flash list
+  /forceflip and /forcenoflip use to manual set the cfi queried erase block geometry
+  (not tested with SST and Intel chip)
+- added Intel chip and SST chip /erasechip function
+  -probeonly /erasechip
+
+1.7u
+- fixed code prevent from hanging at   "Halting Processor ... <Processor did NOT enter Debug Mode!> ... Done"
+- Added a solution while the worst lock, can't enter debug mode.
+
+1.7t
+
+- DMA access routine update
+
+1.7s
+
+- /nompi switch skip MPI register autodetect
+- improved /fc:xxx , /window:xxxxxxx /erasechip combination usage
+
+
+1.7r
+
+- fixed a Intel type flash Program bug introduced by 1.7p. 
+- Added strictly boundary alignment check for Erase/Program
+- fixed a Intel type bug when Program with /noerase switch
+
+1.7p
+
+- fixed tiny CFE size calculation method, max(bottom sector size, 64KB)
+
+1.7m
+
+- fixed -probeonly /erasechip support for all AMD command type flash
+- Added EON, MXIC, ST most 4MB, 8MB and 16MB AMD cmd type flash ID
+
+
+1.7j
+
+- Added new flash dev id for some ST, EON 4MB,8MB and 16MB
+- Added /ejtag0 switch to delay 20ns after each jtag shift cycle,
+   wish this can improve LPT compatiability of some high clock PC
+- Added /pracc0 switch to recall the orignal HD's PrAcc NODMA access routine.
+
+*** The Access Speed Test ***
+
+                          Read(20KB)    Write(1KB)
+
+/dma                   |  6s         |    4s
+/dma /ejtag0           |  8s         |    4s
+/nodma                 | 42s         |   17s
+/nodma /ejtag0         | 58s         |   23s
+/nodma /pracc0         | 60s         |   30s
+/nodma /pracc0 /ejtag0 | 80s         |   40s
+**************************************************
+
+- auto detect BCM63x8 flash base access address by reading MPI register
+
+
+1,6r
+
+-fully tested work with Big Endian BCM63x8 and 16MB Spansion uniform sector flash
+
+
+New for v1.6r 
+             -Added new 16MB Spansion S29GL-P Flash Chip to the list.      
+             -Added new 4MB/8MB/16MB Spansion S29GL-M Flash Chip to the list.
+                    - support show PPB sector protection status,  -probeonly /showppb
+                    - support clear PPB sector protection,  -probeonly /clearppb
+                    - allow erase whole flash with erase chip command,  -probeonly /erasechip
+             -Mass codes cleanup
+                    - allow load CPU configuration code to better support 16MB flash to BCM6358, 
+                      easily add other CPU initial codes in further.  /initcpu
+                    - add BCM6368 CPU ID to the list
+                    - update Pracc code, make R/W faster
+                    - erase window not align with sector boundary is better handled. /forcealign
+                    - allow custom set flash probing base address.     -probeonly /window:xxxxxxxx
+                    - adjust AMD flash command per latest S29GL128-P datasheet
+                    - file length and operation window routine for BCM63x8 updated.
+
+
+New for v1.1 -Added new 16MB Spansion Flash Chip Parts to the list:
+       Please note: 16MB flash is dived into 2x8MHz partitions,only first 8MB can be supported.
+                    - Spansion S29GL128N10TFI01         (16MB)
+
+Re-baseline the tornado version utility to my version-brjtag 1.0 based on Tornado MOD
+hugebird  @ http://www.chinadsl.net/bbs/
+New for BrJtag v1.0
+              Added Endianess selection for Router and ADSL modem
+                      -  useage: /revendian 
+              Added full support for ADSL modem chip
+                      - Broadcom 6345             
+                      - Broadcom 6338             
+                      - Broadcom 6348
+                      - Broadcom 6358
+              Added custom parallel port support
+              Added 64KB tiny CFE support
+                      - useage:  xxx:cfe /tinycfe     or   use xxx:tfe
+                      - useage:  xxx:kernel /tinycfe  or   use xxx:ternel
+
+**************************************************************************
+  ^
+ ]|[  Brjtag by hugebird  @ http://www.chinadsl.net/bbs/
+      http://www.chinadsl.net/bbs/thread-21684-1-1.html
+**************************************************************************
+
+
+
+
+ ====================================================================================================                     
+My modifications - Thanks to HDM's great work
+tornado@odessaua.com
+
+New for v2.0 -Added 13 new Flash Chip Parts to the list:
+                    - Macronix MX25L160A         (2MB)
+                    - W19B(L)320ST   2Mx16 TopB  (4MB)
+                    - W19B(L)320SB   2Mx16 BotB  (4MB)
+                    - M29DW324DT 2Mx16 TopB      (4MB)
+                    - M29DW324DB 2Mx16 BotB      (4MB)
+                    - TC58FVM6T2A  4Mx16 TopB    (8MB)
+                    - TC58FVM6B2A  4Mx16 BopB    (8MB)
+                    - K8D6316UTM  4Mx16 TopB     (8MB)
+                    - K8D6316UBM  4Mx16 BotB     (8MB)
+                    - Spansion S29GL032M BotB    (4MB)
+                    - Spansion S29GL032M TopB    (4MB)
+                    - Spansion S29GL064M BotB    (8MB)
+                    - Spansion S29GL064M TopB    (8MB)
+                Added 2 New Processors
+                    - Broadcom BCM4785 Rev 1 - WRT350N
+                    - TI TNETV1060GDW
+                Added Spansion 3 Byte Device ID Workaround
+                      Spansion Flash & TI TNETV1060GDW CPU
+                      Contributed by kb1klk@aetheriatech.org
+	   Added Wiggler.png - tjtag works with this clone
+		 tested Tornado
+	   Added Changelog.txt, and removed from source.		
+
+New for v4.8.1 -Added 2 new Flash Chip Parts to the list:
+                    - EN29LV160A  2Mx16 TopB     (2MB)
+                    - EN29LV160A  2Mx16 BotB     (2MB)
+                Added 4 New Processors
+                    - BCM5453 Rev 1
+                    - BCM5453 Rev 2
+                    - BCM5365 Rev 1
+                    - BCM4704 Rev 9
+                Added the following New Switch Options
+                    - /bypass .............Unlock Bypass
+                      for AMD/Spansion type Flash Chips
+                Added BSP option for use with flash, erase & backup
+
+ New for v4.8 - Added 2 new Flash Chip Parts to the list:
+                    - SST39VF6401B 4Mx16 BotB     (8MB)
+                    - SST39VF6402B 4Mx16 TopB     (8MB)
+              - Added the following New Switch Options
+                    - /wiggler ........... use wiggler cable
+
+ New for v4.7 - Added 2 new Flash Chip Parts to the list:
+                    - K8D3216UTC  2Mx16 TopB     (4MB)
+                    - K8D3216UBC  2Mx16 BotB     (4MB)
+
+ New for v4.6 - Added Common Flash Chip Polling routine
+              - Added "-probeonly" parameter (good idea jmranger)
+              - Added Chip ID for Broadcom BCM4704 Rev 8 CPU
+              - Added TRST Signal Support for Wiggler Cables
+              - Added Chip ID for BRECIS MSP2007-CA-A1 CPU
+              - Added Experimental 1MB Flash Chip Offsets
+              - Added 2 new Flash Chip Parts to the list:
+                    - MX29LV800BTC 512kx16 TopB  (1MB)
+                    - MX29LV800BTC 512kx16 BotB  (1MB)
+
+ New for v4.5 - Added 2 new Flash Chip Parts to the list:
+                    - K8D1716UTC 1Mx16 TopB      (2MB)
+                    - K8D1716UBC 1Mx16 BotB      (2MB)
+
+ New for v4.4 - Added PrAcc routines to support additional MIPS chips
+                without the ability to use EJTAG DMA Access
+              - Added Chip ID for Broadcom BCM5365 Rev 1 CPU
+              - Added Chip ID for Broadcom BCM6348 Rev 1 CPU (Big Endian)
+              - Added Chip ID for Broadcom BCM6345 Rev 1 CPU
+              - Added 6 new Flash Chip Parts to the list:
+                    - SST39VF1601 1Mx16 BotB     (2MB)
+                    - SST39VF1602 1Mx16 TopB     (2MB)
+                    - SST39VF3201 2Mx16 BotB     (4MB)
+                    - SST39VF3202 2Mx16 TopB     (4MB)
+                    - SST39VF6401 4Mx16 BotB     (8MB)
+                    - SST39VF6402 4Mx16 TopB     (8MB)
+              - Added the following New Switch Options
+                    - /noemw ............. prevent Enabling Memory Writes
+                    - /nocwd ............. prevent Clearing CPU Watchdog Timer
+                    - /dma ............... force use of DMA routines
+                    - /nodma ............. force use of PRACC routines (No DMA)
+                    - /window:XXXXXXXX ... custom flash window base (in HEX)
+                    - /start:XXXXXXXX .... custom start location (in HEX)
+                    - /length:XXXXXXXX ... custom length (in HEX)
+                    - /silent ............ prevent scrolling display of data
+                    - /skipdetect ........ skip auto detection of CPU Chip ID
+                    - /instrlen:XX ....... set instruction length manually
+              - Added elapsed time to Backup, Erase, and Flash routines
+              - Other minor miscellaneous changes/additions.
+
+ New for v4.3 - Corrected Macronix Flash Chip Block Definitions.
+              - Add 8 new Flash Chip Parts to the list:
+                    - AT49BV/LV16X 2Mx16 BotB    (4MB)
+                    - AT49BV/LV16XT 2Mx16 TopB   (4MB)
+                    - MBM29LV160B 1Mx16 BotB     (2MB)
+                    - MBM29LV160T 1Mx16 TopB     (2MB)
+                    - MX29LV161B 1Mx16 BotB      (2MB)
+                    - MX29LV161T 1Mx16 TopB      (2MB)
+                    - ST M29W160EB 1Mx16 BotB    (2MB)
+                    - ST M29W160ET 1Mx16 TopB    (2MB)
+
+ New for v4.2 - Changed the chip_detect routine to allow for easier
+                additions of new chip id's.
+              - Added detection support for the Broadcom BCM5350 chip.
+              - Fixed DMA routines to check status bit that was
+                removed in prior version.
+              - Removed clockout routine in an effort to speed up access.
+              - Changed clockin routine in an effort to speed up access.
+              - Changed ReadData and WriteData routines to merely call
+                ReadWriteData routine.
+              - Removed Defines from .h file and placed flash areas in a
+                structure list for easier maintenance should they change.
+              - Miscellaneous other minor changes.
+
+**************************************************************************
+ Written by HairyDairyMaid (a.k.a. - lightbulb)
+ hairydairymaid@yahoo.com
+**************************************************************************

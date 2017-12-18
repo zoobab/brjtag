@@ -1,0 +1,1 @@
+<Project name="brjtag_m8rom"><File path="main.c"></File><File path="usbasp.c"></File><File path="usbasp.h"></File><File path="usbconfig.h"></File></Project>

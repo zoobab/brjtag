@@ -1,0 +1,32 @@
+#! /bin/bash
+
+echo ""
+echo "Installing 32b FTDI D2XX Driver LIB to /usr/local/lib"
+echo ""
+
+cp libftd2xx.so.0.4.16 /usr/local/lib
+cd /usr/local/lib
+ln -s libftd2xx.so.0.4.16 libftd2xx.so.0
+ln -s libftd2xx.so.0.4.16 libftd2xx.so
+chmod 777 libftd2xx.so.0.4.16
+chmod 777 libftd2xx.so.0
+chmod 777 libftd2xx.so
+
+echo ""
+echo "LIB Copy & Link Completed! Add the following ONE line to /etc/fstab:"
+echo "#for (2.4)"
+echo "none /proc/bus/usb usbdevfs defaults,devmode=0666 0 0"
+echo "#for (2.6)"
+echo "none /proc/bus/usb usbfs defaults,devmode=0666 0 0"
+echo ""
+echo "remount with:"
+echo "mount -a"
+echo ""
+
+echo "for running dynamic link apps in (2.6)"
+echo "occur: libftd2xx.so.0 cannot restore segment prot after reloc: Permission denied"
+echo "try following ONE cmd"
+echo ""
+echo "chcon -t texrel_shlib_t /usr/local/lib/libftd2xx.*"
+echo ""
+
